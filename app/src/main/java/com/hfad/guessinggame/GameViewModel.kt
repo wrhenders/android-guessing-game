@@ -1,11 +1,12 @@
 package com.hfad.guessinggame
 
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel: ViewModel() {
-    val words = listOf("Android", "Activity", "Fragment")
-    val secretWord = words.random().uppercase()
+    private val words = listOf("Android", "Activity", "Fragment")
+    private val secretWord = words.random().uppercase()
     val secretWordDisplay = MutableLiveData<String>()
     var correctGuesses = ""
     val incorrectGuesses = MutableLiveData<String>("")
@@ -15,7 +16,7 @@ class GameViewModel: ViewModel() {
         secretWordDisplay.value = deriveSecretWordDisplay()
     }
 
-    fun deriveSecretWordDisplay(): String {
+    private fun deriveSecretWordDisplay(): String {
         var display = ""
         secretWord.forEach {
             display += checkLetter(it.toString())
@@ -23,7 +24,7 @@ class GameViewModel: ViewModel() {
         return display
     }
 
-    fun checkLetter(str:String) = when (correctGuesses.contains(str)) {
+    private fun checkLetter(str:String) = when (correctGuesses.contains(str)) {
         true -> str
         false -> '_'
     }
