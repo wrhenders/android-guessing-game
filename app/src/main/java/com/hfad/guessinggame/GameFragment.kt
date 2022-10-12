@@ -30,18 +30,19 @@ class GameFragment : Fragment() {
         viewModel.livesLeft.observe(viewLifecycleOwner, Observer { newValue ->
             binding.lives.text = "You now have $newValue lives left"
         })
-        viewModel.secretWordDisplay.observe(viewLifecycleOwner, Observer {newValue ->
+        viewModel.secretWordDisplay.observe(viewLifecycleOwner, Observer { newValue ->
             binding.word.text = newValue
         })
-        binding.guessButton.setOnClickListener() {
-            viewModel.makeGuess(binding.guess.text.toString().uppercase())
-            binding.guess.text = null
-
-            if(viewModel.isWon() || viewModel.isLost()) {
+        viewModel.gameOver.observe(viewLifecycleOwner, Observer { newValue ->
+            if(newValue) {
                 val action = GameFragmentDirections
                     .actionGameFragmentToResultFragment(viewModel.wonLostMessage())
                 view.findNavController().navigate(action)
             }
+        })
+        binding.guessButton.setOnClickListener() {
+            viewModel.makeGuess(binding.guess.text.toString().uppercase())
+            binding.guess.text = null
         }
         return view
     }
