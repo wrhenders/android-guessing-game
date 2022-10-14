@@ -19,8 +19,7 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.hfad.guessinggame.ResultFragment"
-        android:label="fragment_result"
-        tools:layout="@layout/fragment_result" >
+        android:label="fragment_result">
         <argument
             android:name="result"
             app:argType="string" />
